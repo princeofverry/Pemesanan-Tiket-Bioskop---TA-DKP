@@ -453,21 +453,37 @@ public class GUIjava extends javax.swing.JFrame {
     private void CheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckOutActionPerformed
         // TODO add your handling code here:
         
-        if(jCheckBox1.isSelected()){
-            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox1.getText()) + "\n" + "dengan harga Rp" + String.format(Total.getText()));
-        } else if (jCheckBox2.isSelected()){
-            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox2.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()));
-        } else if (jCheckBox3.isSelected()) {
-            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox3.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()));
+        String totalHarga = Total.getText();
+        
+        if (totalHarga.equals("") || totalHarga.equals(0)) {
+            JOptionPane.showMessageDialog(this, "Masukkan jumlah tiketnya atau pencet harga total!");
         } else {
-            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox4.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()));
+            if(jCheckBox1.isSelected()){
+                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox1.getText()) + "\n" + "dengan harga Rp" + String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+            } else if (jCheckBox2.isSelected()){
+                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox2.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+            } else if (jCheckBox3.isSelected()) {
+                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox3.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+            } else {
+                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox4.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+            }
         }
+        
+        clearText();       
+//        if(jCheckBox1.isSelected()){
+//            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox1.getText()) + "\n" + "dengan harga Rp" + String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//        } else if (jCheckBox2.isSelected()){
+//            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox2.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//        } else if (jCheckBox3.isSelected()) {
+//            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox3.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//        } else {
+//            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox4.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//        }
         
         
         
         
 //        JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli");
-        clearText();       
         
     }//GEN-LAST:event_CheckOutActionPerformed
 
