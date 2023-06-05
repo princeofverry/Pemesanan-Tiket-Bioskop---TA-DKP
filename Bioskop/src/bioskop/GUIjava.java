@@ -4,6 +4,7 @@
  */
 package bioskop;
 
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class GUIjava extends javax.swing.JFrame {
             HargaTiket.append(hargaTiket[x][0]);
             HargaTiket.append(": " + hargaTiket[x][1] + "\n");
         }
+        jmlTiket.setText("0");
     }
 
     /**
@@ -144,6 +146,11 @@ public class GUIjava extends javax.swing.JFrame {
         jmlTiket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmlTiketActionPerformed(evt);
+            }
+        });
+        jmlTiket.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jmlTiketPropertyChange(evt);
             }
         });
 
@@ -386,28 +393,58 @@ public class GUIjava extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int Bil = Integer.parseInt(jmlTiket.getText());
+        String jumlahTiket = jmlTiket.getText();
+        
+        String isianNama = txtNama.getText();
+        
 
         
-        
-        if (cmbHari.getSelectedItem() == "Senin") {
-            int hasil = Bil*30000;
-            Total.setText(""+hasil);
-        } else if (cmbHari.getSelectedItem() == "Selasa") {
-            int hasil = Bil*30000;
-            Total.setText(""+hasil);
-        } else if (cmbHari.getSelectedItem() == "Rabu") {
-            int hasil = Bil*30000;
-            Total.setText(""+hasil);
-        } else if (cmbHari.getSelectedItem() == "Kamis") {
-            int hasil = Bil*30000;
-            Total.setText(""+hasil);
-        } else if (cmbHari.getSelectedItem() == "Jumat") {
-            int hasil = Bil*40000;
-            Total.setText(""+hasil);
+        if(isianNama.isBlank() || isianNama.matches("\\d++")) {
+           JOptionPane.showMessageDialog(this, "Masukkan nama dengan benar");
+           clearText();
         } else {
-            int hasil = Bil*45000;
-            Total.setText(""+hasil);
+            if (cmbHari.getSelectedItem() == "Senin") {
+                int hasil = Bil*30000;
+                Total.setText(""+hasil);
+            } else if (cmbHari.getSelectedItem() == "Selasa") {
+                int hasil = Bil*30000;
+                Total.setText(""+hasil);
+            } else if (cmbHari.getSelectedItem() == "Rabu") {
+                int hasil = Bil*30000;
+                Total.setText(""+hasil);
+            } else if (cmbHari.getSelectedItem() == "Kamis") {
+                int hasil = Bil*30000;
+                Total.setText(""+hasil);
+            } else if (cmbHari.getSelectedItem() == "Jumat") {
+                int hasil = Bil*40000;
+                Total.setText(""+hasil);
+            } else {
+                int hasil = Bil*45000;
+                Total.setText(""+hasil);
+            }
         }
+        
+        
+     
+//        if (cmbHari.getSelectedItem() == "Senin") {
+//            int hasil = Bil*30000;
+//            Total.setText(""+hasil);
+//        } else if (cmbHari.getSelectedItem() == "Selasa") {
+//            int hasil = Bil*30000;
+//            Total.setText(""+hasil);
+//        } else if (cmbHari.getSelectedItem() == "Rabu") {
+//            int hasil = Bil*30000;
+//            Total.setText(""+hasil);
+//        } else if (cmbHari.getSelectedItem() == "Kamis") {
+//            int hasil = Bil*30000;
+//            Total.setText(""+hasil);
+//        } else if (cmbHari.getSelectedItem() == "Jumat") {
+//            int hasil = Bil*40000;
+//            Total.setText(""+hasil);
+//        } else {
+//            int hasil = Bil*45000;
+//            Total.setText(""+hasil);
+//        }
         
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -428,14 +465,9 @@ public class GUIjava extends javax.swing.JFrame {
 
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
         // TODO add your handling code here:
-        
         //diganti sama method function clear text
         clearText();
-//        txtNama.setText("");
-//        cmbHari.setSelectedIndex(0);
-//        jmlTiket.setText("");
-//        Total.setText("");
-//        buttonGroup1.clearSelection();
+
         
     }//GEN-LAST:event_ResetActionPerformed
 
@@ -454,36 +486,51 @@ public class GUIjava extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         String totalHarga = Total.getText();
+        String jumlahTiket = jmlTiket.getText();
         
-        if (totalHarga.equals("") || totalHarga.equals(0)) {
-            JOptionPane.showMessageDialog(this, "Masukkan jumlah tiketnya atau pencet harga total!");
-        } else {
-            if(jCheckBox1.isSelected()){
-                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox1.getText()) + "\n" + "dengan harga Rp" + String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
-            } else if (jCheckBox2.isSelected()){
-                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox2.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
-            } else if (jCheckBox3.isSelected()) {
-                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox3.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+        try {
+            int jumlahTiket2 = Integer.parseInt(jumlahTiket);
+            if (jumlahTiket2 <= 0) {
+                JOptionPane.showMessageDialog(this, "Masukkan jumlah tiketnya dengan benar!");
             } else {
-                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox4.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+                if(jCheckBox1.isSelected()){
+                    JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox1.getText()) + "\n" + "dengan harga Rp" + String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+                    clearText();   
+                } else if (jCheckBox2.isSelected()){
+                    JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox2.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+                    clearText();   
+                } else if (jCheckBox3.isSelected()) {
+                    JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox3.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+                    clearText();   
+                } else {
+                    JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox4.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+                    clearText();
+                }
             }
-        }
+        } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Masukkan jumlah tiket dengan angka integer!");
+            } 
         
-        clearText();       
-//        if(jCheckBox1.isSelected()){
-//            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox1.getText()) + "\n" + "dengan harga Rp" + String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
-//        } else if (jCheckBox2.isSelected()){
-//            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox2.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
-//        } else if (jCheckBox3.isSelected()) {
-//            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox3.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+        
+//        if (jumlahTiket <= 0) {
+//            JOptionPane.showMessageDialog(this, "Masukkan jumlah tiketnya dengan benar!");
 //        } else {
-//            JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox4.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//            if(jCheckBox1.isSelected()){
+//                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox1.getText()) + "\n" + "dengan harga Rp" + String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//                clearText();   
+//            } else if (jCheckBox2.isSelected()){
+//                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox2.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//                clearText();   
+//            } else if (jCheckBox3.isSelected()) {
+//                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox3.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//                clearText();   
+//            } else {
+//                JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli tiket  " + String.format(jCheckBox4.getText()) + "\n" + "dengan harga Rp"+String.format(Total.getText()) + " pada studio " + cmbStudio.getSelectedItem());
+//                clearText();   
+//            }
 //        }
         
-        
-        
-        
-//        JOptionPane.showMessageDialog(this, String.format(txtNama.getText())+ " Terima kasih telah membeli");
+ 
         
     }//GEN-LAST:event_CheckOutActionPerformed
 
@@ -494,6 +541,10 @@ public class GUIjava extends javax.swing.JFrame {
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jmlTiketPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jmlTiketPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmlTiketPropertyChange
 
     /**
      * @param args the command line arguments
